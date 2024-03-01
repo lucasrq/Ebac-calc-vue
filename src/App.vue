@@ -1,47 +1,88 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref } from 'vue';
+
+const numero1 = ref(0);
+const numero2 = ref(0);
+const operacao = ref('+');
+const resultado = ref(0);
+
+const calcular = () => {
+  switch (operacao.value) {
+    case '+':
+      resultado.value = Number(numero1.value) + Number(numero2.value);
+      break;
+    case '-':
+      resultado.value = Number(numero1.value) - Number(numero2.value);
+      break;
+    case '/':
+      resultado.value = Number(numero1.value) / Number(numero2.value);
+      break;
+    case '*':
+      resultado.value = Number(numero1.value) * Number(numero2.value);
+      break;
+    default:
+      resultado.value = 0;
+  }
+}
+
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="container top">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <h1>Calculadora</h1>
+        </div>
+      </div>
     </div>
-  </header>
+    <div class="container text-center">
+      <div class="row align-items-start">
+        <div class="col">
+          <input type="number" v-model="numero1" @input="calcular">
+        </div>
+        <div class="col mt-5">
+          <select v-model="operacao" @change="calcular">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="/">/</option>
+            <option value="*">*</option>
+          </select>
+        </div>
+        <div class="col">
+          <input type="number" v-model="numero2" @input="calcular">
+        </div>
+      </div>
+    </div>
 
-  <main>
-    <TheWelcome />
-  </main>
+    <br>
+    <hr>
+    <p class="text-center">{{ resultado }}</p>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+span {
+  color: aqua;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+sobre {
+  display: flex;
+
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.top {
+  background-color: #cccccc66;
+  height: 250px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+p {
+  font-size: 2rem;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+input {
+  width: 50px;
 }
 </style>
+
